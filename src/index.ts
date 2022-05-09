@@ -1,24 +1,18 @@
+import { API_URL } from './constants';
 import { Device } from './types';
 
 export default class ZebraBrowserPrintWrapper {
   device: Device = {} as Device;
+  apiUrl: string = API_URL;
 
-  API_URL = "";
-
-  constructor (api_url: string) {
-    this.API_URL = api_url;
-    
-    if (this.API_URL.slice(-1) != "/") {
-      this.API_URL += "/";
+  constructor(apiUrlOverride: string | null = null) {
+    if (apiUrlOverride != null) {
+      this.apiUrl = apiUrlOverride.slice(-1) != "/" ? apiUrlOverride + "/" : apiUrlOverride;
     }
   }
 
-  setApiUrl = (api_url: string) => {
-    this.API_URL = api_url;
-    
-    if (this.API_URL.slice(-1) != "/") {
-      this.API_URL += "/";
-    }
+  setApiUrl = (apiUrl: string) => {
+    this.apiUrl = apiUrl.slice(-1) != "/" ?  apiUrl + "/" : apiUrl;
   }
 
   getAvailablePrinters = async () => {
@@ -29,14 +23,14 @@ export default class ZebraBrowserPrintWrapper {
       },
     };
 
-    const endpoint = this.API_URL + 'available';
+    const endpoint = this.apiUrl + 'available';
 
     try {
       const res = await fetch(endpoint, config);
 
       const data = await res.json();
 
-      if (data && data !== undefined && data.printer && data.printer !== undefined && data.printer.length > 0) {
+      if (typeof data === 'object' && data !== null && 'printer' in data && data.printer && data.printer !== undefined && Array.isArray(data.printer) && data.printer.length > 0) {
         return data.printer;
       }
 
@@ -54,7 +48,7 @@ export default class ZebraBrowserPrintWrapper {
       },
     };
 
-    const endpoint = this.API_URL + 'default';
+    const endpoint = this.apiUrl + 'default';
 
     try {
       const res = await fetch(endpoint, config);
@@ -101,7 +95,10 @@ export default class ZebraBrowserPrintWrapper {
     return result;
   };
 
-  checkPrinterStatus = async () => {
+  checkPrinterStatus = async (): Promise<{
+      isReadyToPrint: boolean,
+      errors: string,
+    }> => {
     await this.write('~HQES');
     const result = await this.read();
 
@@ -161,7 +158,7 @@ export default class ZebraBrowserPrintWrapper {
 
   write = async (data: string) => {
     try {
-      const endpoint = this.API_URL + 'write';
+      const endpoint = this.apiUrl + 'write';
 
       const myData = {
         device: this.device,
@@ -182,9 +179,57 @@ export default class ZebraBrowserPrintWrapper {
     }
   };
 
+  writeBlob = async (data: Blob) => {
+    try {
+      const endpoint = this.apiUrl + 'write';
+
+      const deviceData = {
+        device: this.device
+      };
+
+      const formData = new FormData;
+      formData.append("json", JSON.stringify(deviceData));
+      formData.append("blob", data);
+
+      const config = {
+        method: "POST",
+        body: formData,
+      };
+
+      await fetch(endpoint, config);
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  };
+
+  writeUrl = async (url: string) => {
+    try {
+      const endpoint = this.apiUrl + 'write';
+
+      const deviceData = {
+        device: this.device
+      };
+
+      const contentBlob = await fetch(url).then(r => r.blob());
+
+      const formData = new FormData;
+      formData.append("json", JSON.stringify(deviceData));
+      formData.append("blob", contentBlob);
+
+      const config = {
+        method: 'POST',
+        body: formData,
+      };
+
+      await fetch(endpoint, config);
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  };
+
   read = async () => {
     try {
-      const endpoint = this.API_URL + 'read';
+      const endpoint = this.apiUrl + 'read';
 
       const myData = {
         device: this.device,
@@ -209,6 +254,22 @@ export default class ZebraBrowserPrintWrapper {
   print = async (text: string) => {
     try {
       await this.write(text);
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  };
+
+  printBlob = async (text: Blob) => {
+    try {
+      await this.writeBlob(text);
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  };
+
+  printUrl = async (url: string) => {
+    try {
+      await this.writeUrl(url);
     } catch (error) {
       throw new Error(error as string);
     }

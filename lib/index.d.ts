@@ -1,10 +1,10 @@
 import { Device } from './types';
 export default class ZebraBrowserPrintWrapper {
     device: Device;
-    API_URL: string;
-    constructor(api_url: string);
-    setApiUrl: (api_url: string) => void;
-    getAvailablePrinters: () => Promise<any>;
+    apiUrl: string;
+    constructor(apiUrlOverride?: string | null);
+    setApiUrl: (apiUrl: string) => void;
+    getAvailablePrinters: () => Promise<any[] | Error>;
     getDefaultPrinter: () => Promise<Device>;
     setPrinter: (device: Device) => void;
     getPrinter: () => Device;
@@ -14,6 +14,10 @@ export default class ZebraBrowserPrintWrapper {
         errors: string;
     }>;
     write: (data: string) => Promise<void>;
+    writeBlob: (data: Blob) => Promise<void>;
+    writeUrl: (url: string) => Promise<void>;
     read: () => Promise<string>;
     print: (text: string) => Promise<void>;
+    printBlob: (text: Blob) => Promise<void>;
+    printUrl: (url: string) => Promise<void>;
 }

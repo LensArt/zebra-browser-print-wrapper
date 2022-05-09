@@ -1,23 +1,47 @@
 {
   "name": "zebra-browser-print-wrapper",
   "version": "1.0.0",
-  "description": "NML Fork of Zebra Browser Print Javascript Wrapper",
+  "description": "LensArt Fork of Zebra Browser Print Javascript Wrapper",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
     "test": "jest --config jestconfig.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phac-nml/zebra-browser-print-wrapper.git"
+    "url": "git+https://github.com/LensArt/zebra-browser-print-wrapper.git"
   },
+  "keywords": [
+    "zpl",
+    "zebra",
+    "zebra programming language",
+    "zebra printers",
+    "barcode"
+  ],
   "files": [
     "lib/**/*"
   ],
-  "author": "Luismar Hilario, Cody Auch",
+  "author": "LensArt",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/phac-nml/zebra-browser-print-wrapper/issues"
+    "url": "https://github.com/LensArt/zebra-browser-print-wrapper/issues"
   },
-  "homepage": "https://github.com/phac-nml/zebra-browser-print-wrapper#readme"
+  "homepage": "https://github.com/LensArt/zebra-browser-print-wrapper#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/jest": "^29.5.13",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.11.0",
+    "jest": "^29.7.0",
+    "node-fetch": "^3.3.2",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.11.0"
+  }
 }
