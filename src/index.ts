@@ -26,7 +26,7 @@ export default class ZebraBrowserPrintWrapper {
 
       return new Error('No printers available');
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error as string);
     }
   };
 
@@ -67,7 +67,7 @@ export default class ZebraBrowserPrintWrapper {
 
       throw new Error("There's no default printer");
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error as string);
     }
   };
 
@@ -162,7 +162,7 @@ export default class ZebraBrowserPrintWrapper {
 
       await fetch(endpoint, config);
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error as string);
     }
   };
 
@@ -186,7 +186,7 @@ export default class ZebraBrowserPrintWrapper {
       const data = await res.text();
       return data;
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error as string);
     }
   };
 
@@ -194,7 +194,7 @@ export default class ZebraBrowserPrintWrapper {
     try {
       await this.write(text);
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error as string);
     }
   };
 }
