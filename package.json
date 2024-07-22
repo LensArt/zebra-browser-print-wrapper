@@ -2,7 +2,7 @@
   "name": "zebra-browser-print-wrapper",
   "version": "1.0.0",
   "description": "NML Fork of Zebra Browser Print Javascript Wrapper",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest --config jestconfig.json"
   },
