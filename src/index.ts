@@ -1,9 +1,17 @@
-import { API_URL } from './constants';
-
 import { Device } from './types';
 
 export default class ZebraBrowserPrintWrapper {
   device: Device = {} as Device;
+
+  API_URL = "";
+
+  constructor (api_url: string) {
+    this.API_URL = api_url;
+    
+    if (this.API_URL.slice(-1) != "/") {
+      this.API_URL += "/";
+    }
+  }
 
   getAvailablePrinters = async () => {
     const config = {
@@ -13,7 +21,7 @@ export default class ZebraBrowserPrintWrapper {
       },
     };
 
-    const endpoint = API_URL + 'available';
+    const endpoint = this.API_URL + 'available';
 
     try {
       const res = await fetch(endpoint, config);
@@ -38,7 +46,7 @@ export default class ZebraBrowserPrintWrapper {
       },
     };
 
-    const endpoint = API_URL + 'default';
+    const endpoint = this.API_URL + 'default';
 
     try {
       const res = await fetch(endpoint, config);
@@ -145,7 +153,7 @@ export default class ZebraBrowserPrintWrapper {
 
   write = async (data: string) => {
     try {
-      const endpoint = API_URL + 'write';
+      const endpoint = this.API_URL + 'write';
 
       const myData = {
         device: this.device,
@@ -168,7 +176,7 @@ export default class ZebraBrowserPrintWrapper {
 
   read = async () => {
     try {
-      const endpoint = API_URL + 'read';
+      const endpoint = this.API_URL + 'read';
 
       const myData = {
         device: this.device,
