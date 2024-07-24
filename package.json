@@ -2,7 +2,8 @@
   "name": "zebra-browser-print-wrapper",
   "version": "1.0.0",
   "description": "NML Fork of Zebra Browser Print Javascript Wrapper",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json"
   },
@@ -10,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/phac-nml/zebra-browser-print-wrapper.git"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "author": "Luismar Hilario, Cody Auch",
   "license": "GPL-3.0",
   "bugs": {
