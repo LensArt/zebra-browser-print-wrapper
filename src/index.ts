@@ -13,6 +13,14 @@ export default class ZebraBrowserPrintWrapper {
     }
   }
 
+  setApiUrl = (api_url: string) => {
+    this.API_URL = api_url;
+    
+    if (this.API_URL.slice(-1) != "/") {
+      this.API_URL += "/";
+    }
+  }
+
   getAvailablePrinters = async () => {
     const config = {
       method: 'GET',
