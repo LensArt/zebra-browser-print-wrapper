@@ -1,19 +1,21 @@
-# Zebra Browser Print Wrapper
+# Zebra Browser Print Wrapper Extended
 
 This package is a wrapper for the [Zebra Browser Print](https://www.zebra.com/la/es/support-downloads/printer-software/by-request-software.html#browser-print) and allows you to easily integrate your Zebra printers with web applications like (ReactJS).
+
+This is a fork from https://github.com/lhilario/zebra-browser-print-wrapper/ with merged pr's from https://github.com/naxels and https://github.com/Adam-Sehlin as the repository was not maintained by https://github.com/lhilario
 
 ## Install
 
 Install the module in your project via YARN
 
 ```bash
-yarn add zebra-browser-print-wrapper
+yarn add zebra-browser-print-wrapper-extended
 ```
 
 Or NPM
 
 ```bash
-npm i zebra-browser-print-wrapper
+npm i zebra-browser-print-wrapper-extended
 ```
 
 
@@ -73,6 +75,8 @@ Prints a Blob.
 
 This also allows printing using the [EPL language](https://www.zebra.com/us/en/support-downloads/knowledge-articles/ait/epl2-command-information-and-details.html).
 
+In order to print pdf ensure the printer emulation setting is set to pdf
+
 ##### **printUrl(str)**
 
 Grab's the URL's content as Blob and send to the Printer.
@@ -83,7 +87,7 @@ This also allows printing EPL.
 
 ```js
 // Import the zebra-browser-prit-wrapper package
-const  ZebraBrowserPrintWrapper = require('zebra-browser-print-wrapper');
+const  ZebraBrowserPrintWrapper = require('zebra-browser-print-wrapper-extended');
 
 const printBarcode = async (serial) => {
     try {
