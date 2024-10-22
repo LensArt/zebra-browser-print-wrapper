@@ -2,6 +2,8 @@
 
 This package is a wrapper for the [Zebra Browser Print](https://www.zebra.com/la/es/support-downloads/printer-software/by-request-software.html#browser-print) and allows you to easily integrate your Zebra printers with web applications like (ReactJS).
 
+This is a fork from https://github.com/lhilario/zebra-browser-print-wrapper/ with merged pr's from https://github.com/naxels and https://github.com/Adam-Sehlin as the repository was not maintained by https://github.com/lhilario
+
 ## Install
 
 Install the module in your project via YARN
