@@ -1,6 +1,6 @@
 {
   "name": "zebra-browser-print-wrapper-extended",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "LensArt Fork of Zebra Browser Print Javascript Wrapper",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
